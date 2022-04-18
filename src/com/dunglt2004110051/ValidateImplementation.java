@@ -1,13 +1,15 @@
 package com.dunglt2004110051;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class ValidateImplementation implements ValidateInterface {
-    private Scanner scanner;
+public class ValidateImplementation implements ValidateInterface, Serializable {
+    // transient khắc phục lỗi java.io.NotSerializableException: java.util.Scanner
+    private transient Scanner scanner;
 
     public ValidateImplementation() {
         scanner = new Scanner(System.in);

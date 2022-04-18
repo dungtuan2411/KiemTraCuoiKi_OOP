@@ -2,6 +2,7 @@ package com.dunglt2004110051;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class HangSanhSu extends HangHoa {
@@ -48,8 +49,8 @@ public class HangSanhSu extends HangHoa {
 
     // nhập
     @Override
-    public void nhap(Scanner scanner) {
-        super.nhap(scanner);
+    public void nhap(List<HangHoa> lstHanghoa, Scanner scanner) {
+        super.nhap(lstHanghoa, scanner);
         System.out.print("Nha san xuat: ");
         this.setNhaSanXuat(scanner.nextLine());
 

@@ -1,14 +1,18 @@
 package com.dunglt2004110051;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Scanner;
 
-public abstract class HangHoa {
+public abstract class HangHoa implements Serializable {
     // attributes
     protected String maGD, tenHang;
     protected int soLuongTonKho;
     protected double donGia;
     // message
     protected ValidateInterface validate;
+
+    private static final long serialVersionUID = 2896143615790145328L;
 
     // getter setter
     public String getMaGD() {
@@ -63,9 +67,31 @@ public abstract class HangHoa {
     protected abstract void danhGiaMucDoBanBuon(); // hợp đồng
 
     // nhập
-    public void nhap(Scanner scanner) {
-        System.out.print("Nhap ma hang: ");
-        this.setMaGD(scanner.nextLine());
+    public void nhap(List<HangHoa> lstHanghoa, Scanner scanner) {
+        boolean isDuplicated = true;
+        String maGDScanner;
+        String copy = null;
+        do {
+            System.out.print("Nhap ma hang: ");
+            maGDScanner = scanner.nextLine();
+
+            String maGD = validate.validateString("\tNhap lai: ",
+                    "Ma giao dich khong duoc de trong !", maGDScanner);
+
+            isDuplicated = lstHanghoa.stream().anyMatch(hh -> hh.getMaGD().equals(maGD));
+
+            if (isDuplicated) {
+                System.out.println("Ma GD bi trung! Nhap lai!");
+                continue;
+            }
+
+            copy = maGD;
+
+        } while (isDuplicated);
+
+        // System.out.print("Nhap ma hang: ");
+        // this.setMaGD(scanner.nextLine());
+        this.setMaGD(copy);
 
         System.out.print("Nhap ten hang: ");
         this.setTenHang(scanner.nextLine());
@@ -80,6 +106,6 @@ public abstract class HangHoa {
     // xuất
     @Override
     public String toString() {
-        return String.format("%-8s %20s %10d %20.1f", this.maGD, this.tenHang, this.soLuongTonKho, this.donGia);
+        return String.format("%-8s %15s %10d %20.1f", this.maGD, this.tenHang, this.soLuongTonKho, this.donGia);
     }
 }

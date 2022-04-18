@@ -1,5 +1,6 @@
 package com.dunglt2004110051;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class HangDienMay extends HangHoa {
@@ -48,8 +49,8 @@ public class HangDienMay extends HangHoa {
 
     // nhập
     @Override
-    public void nhap(Scanner scanner) {
-        super.nhap(scanner);
+    public void nhap(List<HangHoa> lstHanghoa, Scanner scanner) {
+        super.nhap(lstHanghoa, scanner);
         System.out.print("Thoi gian bao hanh: ");
         this.setThoiGianBaoHanh(scanner.nextLine());
 
