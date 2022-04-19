@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class ListHangHoa {
     // attribute
     private List<HangHoa> listHangHoa;
+    // message
+    ValidateInterface validate = new ValidateImplementation();
 
     public List<HangHoa> getListHangHoa() {
         return listHangHoa;
@@ -88,7 +90,7 @@ public class ListHangHoa {
         return this.listHangHoa;
     }
 
-    // Tìm kiếm
+    // Tìm kiếm nhị phân
     public HangHoa binarySearch(List<HangHoa> lstHanghoa, String maGD, int l, int r) {
         // base case
         if (l > r) {
@@ -117,6 +119,7 @@ public class ListHangHoa {
         }
     }
 
+    // Tìm kiếm hàng hóa
     public void timKiemHangHoa(List<HangHoa> lstHanghoa, Scanner scanner) {
         if (listHangHoa.isEmpty()) {
             System.out.println("Danh sach rong!");
@@ -125,10 +128,12 @@ public class ListHangHoa {
 
         System.out.print("Nhap ma cua giao dich can tim: ");
         String maGD = scanner.nextLine();
+        String searchId = validate.validateString("\t Nhap lai: ",
+                "Ma giao dich khong duoc de trong !", maGD);
         // sắp xếp hàng hóa theo mã
         lstHanghoa = this.sapXep();
 
-        HangHoa foundProduct = binarySearch(lstHanghoa, maGD, 0, lstHanghoa.size() -
+        HangHoa foundProduct = binarySearch(lstHanghoa, searchId, 0, lstHanghoa.size() -
                 1);
 
         if (foundProduct == null) {
@@ -145,6 +150,80 @@ public class ListHangHoa {
             line += "=============";
             System.out.println(line);
             System.out.println(foundProduct);
+        }
+    }
+
+    // Xóa hàng hóa
+    public void xoaHangHoa(List<HangHoa> lstHanghoa, Scanner scanner) {
+        if (listHangHoa.isEmpty()) {
+            System.out.println("Danh sach rong!");
+            return;
+        }
+        System.out.print("Nhap ma cua giao dich can xoa: ");
+        String maGD = scanner.nextLine();
+        String searchId = validate.validateString("\t Nhap lai: ",
+                "Ma giao dich khong duoc de trong !", maGD);
+        // sắp xếp hàng hóa theo mã
+        lstHanghoa = this.sapXep();
+
+        HangHoa foundProduct = binarySearch(lstHanghoa, searchId, 0, lstHanghoa.size() -
+                1);
+
+        if (foundProduct == null) {
+            System.out.println("Khong tim thay!");
+        } else {
+            System.out.println("Da xoa san pham: " + "MaGD: " + foundProduct.getMaGD() + " - " + "Ten: "
+                    + foundProduct.getTenHang());
+            listHangHoa.remove(foundProduct);
+        }
+    }
+
+    // Sửa hàng hóa
+    public void suaHangHoa(Scanner scanner) {
+        if (listHangHoa.isEmpty()) {
+            System.out.println("Danh sach rong!");
+            return;
+        }
+        System.out.print("Nhap ma cua giao dich can sua: ");
+        String maGD = scanner.nextLine();
+        String searchId = validate.validateString("\t Nhap lai: ",
+                "Ma giao dich khong duoc de trong !", maGD);
+        // sắp xếp hàng hóa theo mã
+        listHangHoa = this.sapXep();
+
+        HangHoa foundProduct = binarySearch(listHangHoa, searchId, 0,
+                listHangHoa.size() - 1);
+        // lấy vị trí của foundProduct
+        int pos = listHangHoa.indexOf(foundProduct);
+
+        if (pos == -1) {
+            System.out.println("Khong tim thay!");
+        } else {
+            foundProduct.sua(listHangHoa, scanner);
+            this.listHangHoa.set(pos, foundProduct);
+        }
+    }
+
+    // Đánh giá mức độ bán buôn
+    public void danhGiaMucBan(Scanner scanner) {
+        if (listHangHoa.isEmpty()) {
+            System.out.println("Danh sach rong!");
+            return;
+        }
+        System.out.print("Nhap ma cua giao dich can danh gia: ");
+        String maGD = scanner.nextLine();
+        String searchId = validate.validateString("\t Nhap lai: ",
+                "Ma giao dich khong duoc de trong !", maGD);
+        // sắp xếp hàng hóa theo mã
+        listHangHoa = this.sapXep();
+
+        HangHoa foundProduct = binarySearch(listHangHoa, searchId, 0,
+                listHangHoa.size() - 1);
+
+        if (foundProduct == null) {
+            System.out.println("Khong tim thay!");
+        } else {
+            System.out.println(foundProduct.danhGiaMucDoBanBuon());
         }
     }
 

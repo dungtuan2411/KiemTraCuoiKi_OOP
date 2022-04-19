@@ -44,8 +44,8 @@ public class HangThucPham extends HangHoa {
     public void setNgayHetHan(String ngayHetHan, Scanner scanner) {
         Date hetHan = validate.validateDate("\tNhap lai: ",
                 "Sai dinh dang (dd/MM/yyyy)!", ngayHetHan);
-        while (hetHan.before(this.ngaySanXuat) || hetHan.equals(this.ngaySanXuat)) {
-            System.out.println("Ngay het han phai sau ngay san xuat!");
+        while (hetHan.before(this.ngaySanXuat)) {
+            System.out.println("Ngay het han phai la hoac sau ngay san xuat!");
 
             System.out.print("\tNhap lai: ");
             ngayHetHan = scanner.nextLine();
@@ -83,7 +83,29 @@ public class HangThucPham extends HangHoa {
     // mức độ bán buôn
     // mức độ bán buôn hàng thực phẩm
     @Override
-    protected void danhGiaMucDoBanBuon() {
+    protected String danhGiaMucDoBanBuon() {
+        /**
+         * Hàng thực phẩm, nếu vẫn còn tồn kho và bị hết hạn thì đánh giá là
+         * khó bán.
+         */
+        if (this.getSoLuongTonKho() > 0 && this.getNgayHetHan().equals(this.getNgaySanXuat())) {
+            return "Kho ban";
+        }
+        return "Khong danh gia";
+    }
+
+    // sửa
+    @Override
+    public void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
+        super.sua(lstHanghoa, scanner);
+        System.out.print("Sua ngay san xuat: ");
+        this.setNgaySanXuat(scanner.nextLine());
+
+        System.out.print("Sua ngay het han: ");
+        this.setNgayHetHan(scanner.nextLine(), scanner);
+
+        System.out.print("Sua nha cung cap: ");
+        this.setNhaCungCap(scanner.nextLine());
     }
 
     // xuất

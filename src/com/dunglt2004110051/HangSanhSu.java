@@ -1,6 +1,7 @@
 package com.dunglt2004110051;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -44,7 +45,21 @@ public class HangSanhSu extends HangHoa {
     // methods
     // mức độ bán buôn hàng sành sứ
     @Override
-    protected void danhGiaMucDoBanBuon() {
+    protected String danhGiaMucDoBanBuon() {
+        /**
+         * Hàng sành sứ, nếu số lượng tồn kho >50 và thời gian lưu kho >10 ngày thì
+         * đánh giá là bán chậm.
+         */
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -10);
+
+        Date tenDaysAgo = calendar.getTime();
+
+        if (this.getSoLuongTonKho() > 50 && this.getNgayNhapKho().before(tenDaysAgo)) {
+            return "Ban cham";
+        }
+
+        return "Khong danh gia!";
     }
 
     // nhập
@@ -72,5 +87,16 @@ public class HangSanhSu extends HangHoa {
         return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s",
                 nsx, hsd, nhaCungCap, tgianBaoHanh, congSuat,
                 this.getNhaSanXuat(), ngayVietNam.format(this.getNgayNhapKho()));
+    }
+
+    // sửa
+    @Override
+    protected void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
+        super.sua(lstHanghoa, scanner);
+        System.out.print("Sua nha san xuat: ");
+        this.setNhaSanXuat(scanner.nextLine());
+
+        System.out.print("Sua ngay nhap kho: ");
+        this.setNgayNhapKho(scanner.nextLine());
     }
 }

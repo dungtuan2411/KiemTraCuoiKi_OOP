@@ -7,8 +7,50 @@ public class HangHoaTestDrive {
         Scanner scanner = new Scanner(System.in);
 
         // hỏi người dùng xài list có sẵn hay list rỗng
-        ListHangHoa danhSachHangHoa = new ListHangHoa();
-        menu(scanner, danhSachHangHoa);
+        System.out.println("Ban muon dung danh sach co san hay tao danh sach moi?");
+        System.out.println("1. Tao danh sach moi");
+        System.out.println("2. Dung danh sach co san");
+        System.out.print("Ban chon: ");
+        String input = scanner.nextLine();
+
+        boolean valid = false;
+        int timesValidate = 0;
+        int choice;
+
+        while (!valid) {
+            if (timesValidate > 0) {
+                System.out.print("\tNhap lai: ");
+                input = scanner.nextLine();
+            }
+            try {
+                choice = Integer.parseInt(input);
+
+                if (choice <= 0 || choice > 2) {
+                    System.out.println("Khong hop le! Chi nhap trong khoang [1 - 2] !");
+                    timesValidate++;
+                } else {
+                    switch (choice) {
+                        case 1: {
+                            ListHangHoa danhSachHangHoa = new ListHangHoa();
+                            menu(scanner, danhSachHangHoa);
+                            break;
+                        }
+                        case 2: {
+                            ListHangHoa danhSachHangHoa = new ListHangHoa();
+                            danhSachHangHoa.readListFromFile();
+                            menu(scanner, danhSachHangHoa);
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                    valid = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Khong hop le! Vui long nhap so nguyen!");
+                timesValidate++;
+            }
+        }
     }
 
     public static void menu(Scanner scanner, ListHangHoa danhSachHangHoa) {
@@ -17,9 +59,13 @@ public class HangHoaTestDrive {
             System.out.println("\n1. Them hang hoa");
             System.out.println("2. Xuat danh sach hang hoa");
             System.out.println("3. Sap xep danh sach");
-            System.out.println("4. Ghi danh sach vao file");
+            System.out.println("4. Luu danh sach vao file");
             System.out.println("5. Doc danh sach tu file");
             System.out.println("6. Tim kiem");
+            System.out.println("7. Xoa hang hoa");
+            System.out.println("8. Sua hang hoa");
+            System.out.println("9. Danh gia muc do ban buon");
+            System.out.println("0. Ket thuc");
             System.out.print("Ban chon: ");
             choice = scanner.nextInt();
             switch (choice) {
@@ -55,6 +101,25 @@ public class HangHoaTestDrive {
                 case 6: {
                     scanner.nextLine();
                     danhSachHangHoa.timKiemHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
+                    break;
+                }
+                case 7: {
+                    scanner.nextLine();
+                    danhSachHangHoa.xoaHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
+                    break;
+                }
+                case 8: {
+                    scanner.nextLine();
+                    danhSachHangHoa.suaHangHoa(scanner);
+                    break;
+                }
+                case 9: {
+                    scanner.nextLine();
+                    danhSachHangHoa.danhGiaMucBan(scanner);;
+                    break;
+                }
+                case 0: {
+                    System.out.println("Ket thuc!");
                     break;
                 }
                 default:

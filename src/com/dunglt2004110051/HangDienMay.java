@@ -44,7 +44,12 @@ public class HangDienMay extends HangHoa {
     // methods
     // mức độ bán buôn hàng điện máy
     @Override
-    protected void danhGiaMucDoBanBuon() {
+    protected String danhGiaMucDoBanBuon() {
+        /** Hàng điện máy, nếu số lượng tồn kho <3 thì được đánh giá là bán được. */
+        if (this.getSoLuongTonKho() < 3) {
+            return "Ban duoc";
+        }
+        return "Khong danh gia!";
     }
 
     // nhập
@@ -70,5 +75,16 @@ public class HangDienMay extends HangHoa {
                 nsx, hsd, nhaCungCap,
                 this.getThoiGianBaoHanh(), this.getCongSuat(),
                 nhaSX, ngayNhapKho);
+    }
+
+    // sửa
+    @Override
+    public void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
+        super.sua(lstHanghoa, scanner);
+        System.out.print("Sua thoi gian bao hanh: ");
+        this.setThoiGianBaoHanh(scanner.nextLine());
+
+        System.out.print("Sua cong suat: ");
+        this.setCongSuat(scanner.nextLine());
     }
 }

@@ -64,7 +64,7 @@ public abstract class HangHoa implements Serializable {
     }
 
     // methods
-    protected abstract void danhGiaMucDoBanBuon(); // hợp đồng
+    protected abstract String danhGiaMucDoBanBuon(); // hợp đồng
 
     // nhập
     public void nhap(List<HangHoa> lstHanghoa, Scanner scanner) {
@@ -96,10 +96,23 @@ public abstract class HangHoa implements Serializable {
         System.out.print("Nhap ten hang: ");
         this.setTenHang(scanner.nextLine());
 
-        System.out.print("So luong: ");
+        System.out.print("So luong ton kho: ");
         this.setSoLuongTonKho(scanner.nextLine());
 
         System.out.print("Don gia: ");
+        this.setDonGia(scanner.nextLine());
+    }
+
+    // nhập
+    protected void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
+        // không được sửa mã giao dịch
+        System.out.print("Sua ten hang: ");
+        this.setTenHang(scanner.nextLine());
+
+        System.out.print("Sua so luong ton kho: ");
+        this.setSoLuongTonKho(scanner.nextLine());
+
+        System.out.print("Sua don gia: ");
         this.setDonGia(scanner.nextLine());
     }
 
