@@ -71,20 +71,44 @@ public class HangDienMay extends HangHoa {
         String nhaCungCap = "n/a";
         String nhaSX = "n/a";
         String ngayNhapKho = "n/a";
-        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s",
+        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15s",
                 nsx, hsd, nhaCungCap,
                 this.getThoiGianBaoHanh(), this.getCongSuat(),
-                nhaSX, ngayNhapKho);
+                nhaSX, ngayNhapKho, this.tinhVAT());
     }
 
     // sửa
+    public void setThoiGianBaoHanhSua(Scanner scanner, String thoiGianBaoHanh) {
+        this.thoiGianBaoHanh = validate.validateFixedInteger(scanner, "\tNhap lai: ",
+                "Khong hop le! Thoi gian bao hanh la so nguyen!",
+                thoiGianBaoHanh, "thoi gian bao hanh");
+    }
+
+    public void setCongSuatSua(Scanner scanner, String congSuat) {
+        this.congSuat = validate.validateFixedInteger(scanner, "\tNhap lai: ",
+                "Khong hop le! Cong suat la so nguyen!",
+                congSuat, "cong suat");
+    }
+
     @Override
     public void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
         super.sua(lstHanghoa, scanner);
         System.out.print("Sua thoi gian bao hanh: ");
-        this.setThoiGianBaoHanh(scanner.nextLine());
+        this.setThoiGianBaoHanhSua(scanner, scanner.nextLine());
 
         System.out.print("Sua cong suat: ");
-        this.setCongSuat(scanner.nextLine());
+        this.setCongSuatSua(scanner, scanner.nextLine());
+    }
+
+    // tính VAT
+    private double tinhVATHangDienMay() {
+        double vat = this.getDonGia() * 0.1;
+        return vat;
+    }
+
+    @Override
+    protected double tinhVAT() {
+        // Biết rằng VAT của hàng điện máy và sành sứ là 10%
+        return this.tinhVATHangDienMay();
     }
 }

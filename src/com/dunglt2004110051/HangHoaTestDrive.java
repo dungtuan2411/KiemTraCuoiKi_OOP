@@ -67,65 +67,86 @@ public class HangHoaTestDrive {
             System.out.println("9. Danh gia muc do ban buon");
             System.out.println("0. Ket thuc");
             System.out.print("Ban chon: ");
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 1: {
-                    char confirm = 'y';
-                    do {
-                        if (Character.toUpperCase(confirm) == 'Y') {
-                            danhSachHangHoa.themHangHoa(scanner);
-                        } else {
-                            System.out.println("Sai cu phap! Chon y hoac n");
-                        }
-                        System.out.print("Nhap them (Y/N)?: ");
-                        confirm = scanner.next().charAt(0);
-                    } while (Character.toUpperCase(confirm) != 'N');
-                    break;
-                }
-                case 2: {
-                    danhSachHangHoa.xuatDanhSach();
-                    break;
-                }
-                case 3: {
-                    danhSachHangHoa.sapXep();
-                    break;
-                }
-                case 4: {
-                    danhSachHangHoa.writeListToFile();
-                    break;
-                }
-                case 5: {
-                    danhSachHangHoa.readListFromFile();
-                    break;
-                }
-                case 6: {
-                    scanner.nextLine();
-                    danhSachHangHoa.timKiemHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
-                    break;
-                }
-                case 7: {
-                    scanner.nextLine();
-                    danhSachHangHoa.xoaHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
-                    break;
-                }
-                case 8: {
-                    scanner.nextLine();
-                    danhSachHangHoa.suaHangHoa(scanner);
-                    break;
-                }
-                case 9: {
-                    scanner.nextLine();
-                    danhSachHangHoa.danhGiaMucBan(scanner);;
-                    break;
-                }
-                case 0: {
-                    System.out.println("Ket thuc!");
-                    break;
-                }
-                default:
-                    break;
-            }
 
+            String input = scanner.nextLine();
+
+            boolean valid = false;
+            int timesValidate = 0;
+
+            while (!valid) {
+                if (timesValidate > 0) {
+                    System.out.print("\tNhap lai: ");
+                    input = scanner.nextLine();
+                }
+                try {
+                    choice = Integer.parseInt(input);
+
+                    if (choice < 0 || choice > 9) {
+                        System.out.println("Khong hop le! Chi nhap trong khoang [0 - 9] !");
+                        timesValidate++;
+                    } else {
+                        switch (choice) {
+                            case 1: {
+                                char confirm = 'y';
+                                do {
+                                    if (Character.toUpperCase(confirm) == 'Y') {
+                                        danhSachHangHoa.themHangHoa(scanner);
+                                    } else {
+                                        System.out.println("Sai cu phap! Chon y hoac n");
+                                    }
+                                    System.out.print("Nhap them (Y/N)?: ");
+                                    confirm = scanner.next().charAt(0);
+                                    scanner.nextLine();
+                                } while (Character.toUpperCase(confirm) != 'N');
+                                break;
+                            }
+                            case 2: {
+                                danhSachHangHoa.xuatDanhSach();
+                                break;
+                            }
+                            case 3: {
+                                danhSachHangHoa.sapXep();
+                                break;
+                            }
+                            case 4: {
+                                danhSachHangHoa.writeListToFile();
+                                break;
+                            }
+                            case 5: {
+                                danhSachHangHoa.readListFromFile();
+                                break;
+                            }
+                            case 6: {
+                                danhSachHangHoa.timKiemHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
+                                break;
+                            }
+                            case 7: {
+                                danhSachHangHoa.xoaHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
+                                break;
+                            }
+                            case 8: {
+                                danhSachHangHoa.suaHangHoa(scanner);
+                                break;
+                            }
+                            case 9: {
+                                danhSachHangHoa.danhGiaMucBan(scanner);
+                                break;
+                            }
+                            case 0: {
+                                System.out.println("Ket thuc!");
+                                break;
+                            }
+                            default:
+                                break;
+                        }
+                        valid = true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Khong hop le! Vui long nhap so nguyen!");
+                    timesValidate++;
+                }
+            }
+            choice = Integer.parseInt(input);
         } while (choice != 0);
 
     }

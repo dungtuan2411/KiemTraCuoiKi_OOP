@@ -28,7 +28,7 @@ public class ListHangHoa {
         System.out.println("2. Hang dien may");
         System.out.println("3. Hang sanh su");
         System.out.print("Ban chon: ");
-        scanner.nextLine();
+
         String input = scanner.nextLine();
 
         boolean valid = false;
@@ -235,15 +235,15 @@ public class ListHangHoa {
         }
 
         System.out.println("\nDanh sách hàng hóa");
-        System.out.printf("%-8s %15s %20s %13s %15s %15s %15s %20s %13s %15s %15s\n",
+        System.out.printf("%-8s %12s %15s %10s %15s %15s %15s %20s %13s %15s %18s %13s\n",
                 "Ma hang", "Ten hang", "So luong ton", "Don gia",
                 "Ngay san xuat", "Ngay het han", "Nha cung cap", "Thoi gian bao hanh",
-                "Cong suat", "Nha san xuat", "Ngay nhap kho");
+                "Cong suat", "Nha san xuat", "Ngay nhap kho", "Thue VAT");
         String line = "========================================";
         line += "========================================";
         line += "========================================";
         line += "========================================";
-        line += "=============";
+        line += "====================";
         System.out.println(line);
         for (int i = 0; i < listHangHoa.size(); i++) {
             System.out.println(listHangHoa.get(i));

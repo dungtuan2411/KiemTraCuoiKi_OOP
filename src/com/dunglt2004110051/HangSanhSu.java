@@ -84,19 +84,41 @@ public class HangSanhSu extends HangHoa {
         String tgianBaoHanh = "n/a";
         String congSuat = "n/a";
 
-        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s",
+        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15s",
                 nsx, hsd, nhaCungCap, tgianBaoHanh, congSuat,
-                this.getNhaSanXuat(), ngayVietNam.format(this.getNgayNhapKho()));
+                this.getNhaSanXuat(), ngayVietNam.format(this.getNgayNhapKho()), this.tinhVAT());
     }
 
     // sửa
+    public void setNhaSanXuatSua(Scanner scanner, String nhaSanXuat) {
+        this.nhaSanXuat = validate.validateFixedString(scanner, "\tNhap lai: ",
+                "Nha san xuat khong duoc rong", nhaSanXuat);
+    }
+
+    public void setNgayNhapKhoSua(Scanner scanner, String ngayNhapKho) {
+        this.ngayNhapKho = validate.validateFixedDate(scanner, "\tNhap lai: ",
+                "Sai dinh dang (dd/MM/yyyy)", ngayNhapKho);
+    }
+
     @Override
     protected void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
         super.sua(lstHanghoa, scanner);
         System.out.print("Sua nha san xuat: ");
-        this.setNhaSanXuat(scanner.nextLine());
+        this.setNhaSanXuatSua(scanner, scanner.nextLine());
 
         System.out.print("Sua ngay nhap kho: ");
-        this.setNgayNhapKho(scanner.nextLine());
+        this.setNgayNhapKhoSua(scanner, scanner.nextLine());
+    }
+
+    // tính VAT
+    private double tinhVATHangSanhSu() {
+        double vat = this.getDonGia() * 0.1;
+        return vat;
+    }
+
+    @Override
+    protected double tinhVAT() {
+        // Biết rằng VAT của hàng điện máy và sành sứ là 10%
+        return this.tinhVATHangSanhSu();
     }
 }

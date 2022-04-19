@@ -66,6 +66,8 @@ public abstract class HangHoa implements Serializable {
     // methods
     protected abstract String danhGiaMucDoBanBuon(); // hợp đồng
 
+    protected abstract double tinhVAT();
+
     // nhập
     public void nhap(List<HangHoa> lstHanghoa, Scanner scanner) {
         boolean isDuplicated = true;
@@ -89,8 +91,6 @@ public abstract class HangHoa implements Serializable {
 
         } while (isDuplicated);
 
-        // System.out.print("Nhap ma hang: ");
-        // this.setMaGD(scanner.nextLine());
         this.setMaGD(copy);
 
         System.out.print("Nhap ten hang: ");
@@ -103,22 +103,38 @@ public abstract class HangHoa implements Serializable {
         this.setDonGia(scanner.nextLine());
     }
 
-    // nhập
+    // sửa
+    public void setTenHangSua(Scanner scanner, String tenHang) {
+        this.tenHang = validate.validateFixedString(scanner, "\t Nhap lai: ",
+                "Ten hang khong duoc de trong !",
+                tenHang);
+    }
+
+    public void setSoLuongTonKhoSua(Scanner scanner, String soLuongTonKho) {
+        this.soLuongTonKho = validate.validateFixedInteger(scanner, "\t Nhap lai: ",
+                "Khong hop le! So luong ton kho la so nguyen!", soLuongTonKho, "so luong ton kho");
+    }
+
+    public void setDonGiaSua(Scanner scanner, String donGia) {
+        this.donGia = validate.validateFixedDouble(scanner, "\t Nhap lai: ",
+                "Khong hop le! Don gia la so thuc (VD: 5.5)!", donGia, "Don gia");
+    }
+
     protected void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
         // không được sửa mã giao dịch
         System.out.print("Sua ten hang: ");
-        this.setTenHang(scanner.nextLine());
+        this.setTenHangSua(scanner, scanner.nextLine());
 
         System.out.print("Sua so luong ton kho: ");
-        this.setSoLuongTonKho(scanner.nextLine());
+        this.setSoLuongTonKhoSua(scanner, scanner.nextLine());
 
         System.out.print("Sua don gia: ");
-        this.setDonGia(scanner.nextLine());
+        this.setDonGiaSua(scanner, scanner.nextLine());
     }
 
     // xuất
     @Override
     public String toString() {
-        return String.format("%-8s %15s %10d %20.1f", this.maGD, this.tenHang, this.soLuongTonKho, this.donGia);
+        return String.format("%-7s %12s %10d %15.1f", this.maGD, this.tenHang, this.soLuongTonKho, this.donGia);
     }
 }

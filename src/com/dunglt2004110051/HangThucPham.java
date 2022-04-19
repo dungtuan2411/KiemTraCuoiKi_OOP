@@ -95,17 +95,43 @@ public class HangThucPham extends HangHoa {
     }
 
     // sửa
+    public void setNgaySanXuatSua(Scanner scanner, String ngaySanXuat) {
+        this.ngaySanXuat = validate.validateFixedDate(scanner, "\tNhap lai: ",
+                "Sai dinh dang (dd/MM/yyyy)!",
+                ngaySanXuat);
+    }
+
+    public void setNgayHetHanSua(String ngayHetHan, Scanner scanner) {
+        Date hetHan = validate.validateFixedDate(scanner, "\tNhap lai: ",
+                "Sai dinh dang (dd/MM/yyyy)!", ngayHetHan);
+        while (hetHan.before(this.ngaySanXuat)) {
+            System.out.println("Ngay het han phai la hoac sau ngay san xuat!");
+
+            System.out.print("\tNhap lai: ");
+            ngayHetHan = scanner.nextLine();
+
+            hetHan = validate.validateFixedDate(scanner, "\tNhap lai: ",
+                    "Sai dinh dang (dd/MM/yyyy)!", ngayHetHan);
+        }
+        this.ngayHetHan = hetHan;
+    }
+
+    public void setNhaCungCapSua(Scanner scanner, String nhaCungCap) {
+        this.nhaCungCap = validate.validateFixedString(scanner, "\tNhap lai: ",
+                "Nha cung cap khong duoc rong", nhaCungCap);
+    }
+
     @Override
     public void sua(List<HangHoa> lstHanghoa, Scanner scanner) {
         super.sua(lstHanghoa, scanner);
         System.out.print("Sua ngay san xuat: ");
-        this.setNgaySanXuat(scanner.nextLine());
+        this.setNgaySanXuatSua(scanner, scanner.nextLine());
 
         System.out.print("Sua ngay het han: ");
-        this.setNgayHetHan(scanner.nextLine(), scanner);
+        this.setNgayHetHanSua(scanner.nextLine(), scanner);
 
         System.out.print("Sua nha cung cap: ");
-        this.setNhaCungCap(scanner.nextLine());
+        this.setNhaCungCapSua(scanner, scanner.nextLine());
     }
 
     // xuất
@@ -117,9 +143,21 @@ public class HangThucPham extends HangHoa {
         String congSuat = "n/a";
         String nhaSX = "n/a";
         String ngayNhapKho = "n/a";
-        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s",
+        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15s",
                 ngayVietNam.format(getNgaySanXuat()), ngayVietNam.format(this.getNgayHetHan()),
                 this.getNhaCungCap(), tgianBaoHanh,
-                congSuat, nhaSX, ngayNhapKho);
+                congSuat, nhaSX, ngayNhapKho, this.tinhVAT());
+    }
+
+    // tính VAT
+    private double tinhVatHangThucPham() {
+        double vat = this.getDonGia() * 0.05;
+        return vat;
+    }
+
+    @Override
+    protected double tinhVAT() {
+        // Biết rằng VAT của hàng thực phẩm là 5%
+        return this.tinhVatHangThucPham();
     }
 }
