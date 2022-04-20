@@ -139,15 +139,15 @@ public class ListHangHoa {
         if (foundProduct == null) {
             System.out.println("Khong tim thay!");
         } else {
-            System.out.printf("%-8s %15s %20s %13s %15s %15s %15s %20s %13s %15s %15s\n",
+            System.out.printf("%-8s %12s %15s %10s %15s %15s %15s %20s %13s %15s %18s %13s\n",
                     "Ma hang", "Ten hang", "So luong ton", "Don gia",
                     "Ngay san xuat", "Ngay het han", "Nha cung cap", "Thoi gian bao hanh",
-                    "Cong suat", "Nha san xuat", "Ngay nhap kho");
+                    "Cong suat", "Nha san xuat", "Ngay nhap kho", "Thue VAT");
             String line = "========================================";
             line += "========================================";
             line += "========================================";
             line += "========================================";
-            line += "=============";
+            line += "====================";
             System.out.println(line);
             System.out.println(foundProduct);
         }

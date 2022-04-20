@@ -88,7 +88,9 @@ public class HangThucPham extends HangHoa {
          * Hàng thực phẩm, nếu vẫn còn tồn kho và bị hết hạn thì đánh giá là
          * khó bán.
          */
-        if (this.getSoLuongTonKho() > 0 && this.getNgayHetHan().equals(this.getNgaySanXuat())) {
+        Date date = new Date();
+
+        if (this.getSoLuongTonKho() > 0 && this.getNgayHetHan().before(date)) {
             return "Kho ban";
         }
         return "Khong danh gia";
