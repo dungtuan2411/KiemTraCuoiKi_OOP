@@ -60,11 +60,10 @@ public class HangHoaTestDrive {
             System.out.println("2. Xuat danh sach hang hoa");
             System.out.println("3. Sap xep danh sach");
             System.out.println("4. Luu danh sach vao file");
-            System.out.println("5. Doc danh sach tu file");
-            System.out.println("6. Tim kiem");
-            System.out.println("7. Xoa hang hoa");
-            System.out.println("8. Sua hang hoa");
-            System.out.println("9. Danh gia muc do ban buon");
+            System.out.println("5. Tim kiem");
+            System.out.println("6. Xoa hang hoa");
+            System.out.println("7. Sua hang hoa");
+            System.out.println("8. Danh gia muc do ban buon");
             System.out.println("0. Ket thuc");
             System.out.print("Ban chon: ");
 
@@ -113,22 +112,18 @@ public class HangHoaTestDrive {
                                 break;
                             }
                             case 5: {
-                                danhSachHangHoa.readListFromFile();
-                                break;
-                            }
-                            case 6: {
                                 danhSachHangHoa.timKiemHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
                                 break;
                             }
-                            case 7: {
+                            case 6: {
                                 danhSachHangHoa.xoaHangHoa(danhSachHangHoa.getListHangHoa(), scanner);
                                 break;
                             }
-                            case 8: {
+                            case 7: {
                                 danhSachHangHoa.suaHangHoa(scanner);
                                 break;
                             }
-                            case 9: {
+                            case 8: {
                                 danhSachHangHoa.danhGiaMucBan(scanner);
                                 break;
                             }
