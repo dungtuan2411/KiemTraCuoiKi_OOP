@@ -145,7 +145,7 @@ public class HangThucPham extends HangHoa {
         String congSuat = "n/a";
         String nhaSX = "n/a";
         String ngayNhapKho = "n/a";
-        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15s",
+        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15.1f",
                 ngayVietNam.format(getNgaySanXuat()), ngayVietNam.format(this.getNgayHetHan()),
                 this.getNhaCungCap(), tgianBaoHanh,
                 congSuat, nhaSX, ngayNhapKho, this.tinhVAT());

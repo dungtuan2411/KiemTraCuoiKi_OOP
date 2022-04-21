@@ -2,7 +2,7 @@ package com.dunglt2004110051;
 
 import java.util.Comparator;
 
-class SortByID implements Comparator<HangHoa> {
+public class SortByID implements Comparator<HangHoa> {
 
     @Override
     public int compare(HangHoa h1, HangHoa h2) {

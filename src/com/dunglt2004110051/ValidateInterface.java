@@ -13,6 +13,8 @@ public interface ValidateInterface {
     public Date validateDate(String message, String errorMsg, String input);
 
     // sửa
+    // Dùng để khắc phục lỗi NullPointerException khi dùng transient với Scanner của
+    // ValidateImplementation
     public String validateFixedString(Scanner scanner, String message, String errorMessage, String input);
 
     public int validateFixedInteger(Scanner scanner, String message, String errorMessage, String input,

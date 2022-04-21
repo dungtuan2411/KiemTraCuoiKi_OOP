@@ -84,7 +84,7 @@ public class HangSanhSu extends HangHoa {
         String tgianBaoHanh = "n/a";
         String congSuat = "n/a";
 
-        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15s",
+        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15.1f",
                 nsx, hsd, nhaCungCap, tgianBaoHanh, congSuat,
                 this.getNhaSanXuat(), ngayVietNam.format(this.getNgayNhapKho()), this.tinhVAT());
     }

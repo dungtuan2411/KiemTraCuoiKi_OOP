@@ -257,7 +257,7 @@ public class ValidateImplementation implements ValidateInterface, Serializable {
         return num;
     }
 
-    // kiểm tra số ngày khi sửa
+    // kiểm tra ngày khi sửa
     @Override
     public Date validateFixedDate(Scanner scanner, String message, String errorMsg, String input) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");

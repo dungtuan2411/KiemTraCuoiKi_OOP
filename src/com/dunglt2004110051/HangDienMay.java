@@ -71,7 +71,7 @@ public class HangDienMay extends HangHoa {
         String nhaCungCap = "n/a";
         String nhaSX = "n/a";
         String ngayNhapKho = "n/a";
-        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15s",
+        return super.toString() + String.format("%15s %15s %15s %15s %15s %20s %15s %15.1f",
                 nsx, hsd, nhaCungCap,
                 this.getThoiGianBaoHanh(), this.getCongSuat(),
                 nhaSX, ngayNhapKho, this.tinhVAT());
